@@ -1,0 +1,67 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/elements/reddit-nav.html">
+<link rel="import" href="/elements/reddit-stories-list.html">
+
+<polymer-element name="reddit-client">
+  <template>
+    <style>
+      reddit-nav {
+        width: 200px;
+        float: right;
+      }
+    </style>
+
+    <h1>{{header}}</h1>
+    <reddit-nav
+      activeNavUrl="{{activeNavUrl}}"
+      navItems="{{navItems}}"
+      on-nav-item-selected="{{navItemSelected}}"></reddit-nav>
+    <reddit-stories-list stories="{{stories}}"></reddit-stories-list>
+  </template>
+
+  <script>
+    Polymer({
+      activeNavUrl: "",
+      created: function() {
+        this.navItems = [];
+        this.stories = [];
+      },
+      navItemSelected: function(event, detail) {
+        var redditClient = this;
+        var cbname = "fn" + Date.now();
+        var script = document.createElement("script");
+        script.src = "http://www.reddit.com/" + detail.navItem.url +
+          ".json?sort=top&t=month&jsonp=" + cbname;
+
+        window[cbname] = function(jsonData) {
+          redditClient.stories = jsonData.data.children.map(function(c) {
+            return c.data;
+          });
+          delete window[cbname];
+        };
+        
+        document.head.appendChild(script);
+
+        this.activeNavUrl = detail.navItem.url;
+        this.stories = [];
+        this.header = detail.navItem.display_name;
+      },
+      ready: function() {
+        var redditClient = this;
+        var cbname = "fn" + Date.now();
+        var script = document.createElement("script");
+        script.src = "http://www.reddit.com/reddits.json?jsonp=" + cbname;
+
+        window[cbname] = function(jsonData) {
+          redditClient.navItems = jsonData.data.children
+            .map(function(c) { return c.data; })
+            .sort(function(a, b) { return b.subscribers - a.subscribers});
+          delete window[cbname];
+        };
+
+        document.head.appendChild(script);
+      },
+      header: "Please select a sub"
+    });
+  </script>
+</polymer-element>

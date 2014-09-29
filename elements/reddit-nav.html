@@ -1,0 +1,58 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<polymer-element name="reddit-nav" attributes="activeNavUrl navItems">
+  <template>
+    <style>
+      :host {
+        text-transform: uppercase;
+      }
+
+      ul {
+        background-color: #37383a;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+      }
+
+      .header {
+        padding: 15px;
+        background-color: #4e5053;
+      }
+
+      li {
+        cursor: pointer;
+        padding: 15px;
+      }
+
+      .selected {
+        background-color: #9061b2;
+      }
+    </style>
+
+    <div class="header">Navigation</div>
+    <ul>
+      <template repeat="{{navItem in navItems}}">
+        <li class="{{{selected: navItem.url === activeNavUrl} | tokenList}}"
+            on-click="{{navItemClick}}">
+          {{navItem.display_name}}
+        </li>
+      </template>
+    </ul>
+  </template>
+
+  <script>
+    Polymer({
+      created: function() {
+        this.navItems = [];
+      },
+      navItemClick: function(event, detail, sender) {
+        this.fire("nav-item-selected",
+          {navItem: event.target.templateInstance.model.navItem});
+      },
+      publish: {
+        activeNavUrl: ""
+      }
+    });
+  </script>
+</polymer-element>

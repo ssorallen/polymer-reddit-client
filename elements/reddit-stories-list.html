@@ -1,0 +1,60 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<polymer-element name="reddit-stories-list" attributes="stories">
+  <template>
+    <style>
+      .score {
+        font-size: 36px;
+        margin: 15px;
+        color: #afb3b9;
+      }
+
+      .title {
+        font-size: 18px;
+      }
+
+      .title a {
+        text-decoration: none;
+        color: #fff;
+      }
+
+      .author {
+        font-size: 16px;
+      }
+
+      .author b {
+        color: #afb3b9;
+      }
+    </style>
+
+    <table>
+      <tbody>
+        <template repeat="{{story in stories}}">
+          <tr>
+            <td>
+              <p class="score">{{story.score}}</p>
+            </td>
+            <td>
+              <p class="title">
+                <a href="{{story.url}}">
+                  {{story.title}}
+                </a>
+              </p>
+              <p class="author">
+                Posted by <b>{{story.author}}</b>
+              </p>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </template>
+
+  <script>
+    Polymer({
+      created: function() {
+        this.stories = [];
+      }
+    });
+  </script>
+</polymer-element>
