@@ -1,6 +1,6 @@
 {
   "name": "polymer-reddit-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "authors": [
     "Ross Allen <rossgit@gmail.com>"
   ],
@@ -21,6 +21,6 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.4.1"
+    "polymer": "~0.5.2"
   }
 }
