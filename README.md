@@ -5,7 +5,7 @@ A simple Reddit client written with [Polymer.js](https://www.polymer-project.org
 
 ## Demo
 
-http://ssorallen.com/polymer-reddit-client/
+http://www.ssorallen.com/polymer-reddit-client/
 
 ### Running Locally
 
