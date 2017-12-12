@@ -30,7 +30,7 @@
         var redditClient = this;
         var cbname = "fn" + Date.now();
         var script = document.createElement("script");
-        script.src = "http://www.reddit.com/" + detail.navItem.url +
+        script.src = "https://www.reddit.com/" + detail.navItem.url +
           ".json?sort=top&t=month&jsonp=" + cbname;
 
         window[cbname] = function(jsonData) {
@@ -50,7 +50,7 @@
         var redditClient = this;
         var cbname = "fn" + Date.now();
         var script = document.createElement("script");
-        script.src = "http://www.reddit.com/reddits.json?jsonp=" + cbname;
+        script.src = "https://www.reddit.com/reddits.json?jsonp=" + cbname;
 
         window[cbname] = function(jsonData) {
           redditClient.navItems = jsonData.data.children
